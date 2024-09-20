@@ -1,2 +1,10 @@
 
 .venv/
+
+agro/.idea/
+
+agro/agro/__pycache__/
+
+agro/fazenda/__pycache__/
+
+*.pyc
