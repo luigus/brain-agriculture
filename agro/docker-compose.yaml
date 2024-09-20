@@ -1,0 +1,48 @@
+# docker-compose.yml
+
+version: '3.9'
+
+services:
+  db:
+    image: postgres:15
+    container_name: postgres_db
+    environment:
+      POSTGRES_DB: mydb
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - project-network
+
+  web:
+    build: .
+    container_name: django_app
+    environment:
+      DB_NAME: mydb
+      DB_USER: myuser
+      DB_PASSWORD: mypassword
+      DB_HOST: db
+      DB_PORT: 5432
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    stdin_open: true
+    tty: true
+    networks:
+      - project-network
+
+volumes:
+  postgres_data:
+
+networks:
+  project-network:
+    driver: bridge
+    ipam:
+      driver: default
+
