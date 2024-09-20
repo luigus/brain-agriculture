@@ -1,13 +1,18 @@
 from rest_framework import viewsets
 from rest_framework.response import Response
-from .models import ProdutorRural
-from .serializers import ProdutorRuralSerializer
+from .models import ProdutorRural, Cultura
+from .serializers import ProdutorRuralSerializer, CulturaSerializer
 from django.db.models import Sum
 
 
 class ProdutorRuralViewSet(viewsets.ModelViewSet):
     queryset = ProdutorRural.objects.all()
     serializer_class = ProdutorRuralSerializer
+
+
+class CulturaViewSet(viewsets.ModelViewSet):
+    queryset = Cultura.objects.all()
+    serializer_class = CulturaSerializer
 
 
 class DashboardViewSet(viewsets.ViewSet):
