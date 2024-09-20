@@ -13,7 +13,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 ROOT_URLCONF = "agro.urls"
 WSGI_APPLICATION = "agro.wsgi.application"
 
-ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['0.0.0.0']
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -53,13 +53,22 @@ TEMPLATES = [
     },
 ]
 
+DOCKER = True
+if DOCKER:
+    # If run docker
+    HOST = 'db'
+else:
+    # If run local
+    HOST = 'localhost'
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'mydb',
         'USER': 'myuser',
         'PASSWORD': 'mypassword',
-        'HOST': 'localhost',
+        'HOST': HOST,
         'PORT': '5432',
     }
 }
